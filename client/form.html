@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Import Google Icon Font -->
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+    <!-- Compiled and minified CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
+    />
+
+    <!-- Let browser know website is optimized for mobile -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body>
+    <nav>
+      <div class="nav-wrapper">
+        <a href="#!" class="brand-logo"
+          ><i class="material-icons">cloud</i>Logo</a
+        >
+        <ul class="right hide-on-med-and-down">
+          <li>
+            <a href="#"><i class="material-icons">http</i></a>
+          </li>
+          <li>
+            <a href="dashboard.html"
+              ><i class="material-icons">view_module</i></a
+            >
+          </li>
+          <li>
+            <a href="#"><i class="material-icons">refresh</i></a>
+          </li>
+          <li>
+            <a href="mobile.html"><i class="material-icons">more_vert</i></a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <div class="cotainer">
+      <div class="row">
+        <div class="col s2"></div>
+        <div class="col s5 z-depth-1">
+          <br />
+          <!-- <div class="row">
+            <div class="col s4">
+              <form
+                action="http://localhost:3030/upload"
+                method="POST"
+                enctype="multipart/form-data"
+              >
+                <div><input id="file" type="file" name="file" /></div>
+                <br />
+                <div class="waves-effect waves-light btn">
+                  <input type="submit" name="Subir" class="validate" />
+                </div>
+              </form>
+            </div> -->
+            <div class="col s2"></div>
+            <div class="col s8">
+              <h4 class="center-align">Nombre</h4>
+              <span>Esto es una description del sevidor</span>
+              <form action="#">
+                <div class="row file-field input-field">
+                  <div class="btn">
+                    <span>File</span> <input type="file" multiple />
+                  </div>
+                  <div class="file-path-wrapper">
+                    <input
+                      class="file-path validate"
+                      type="text"
+                      placeholder="Upload one or more files"
+                    />
+                  </div>
+                </div>
+                <div class="row">
+                  <center>
+                    <div class="input-field col s12">
+                      <div class="col s6">
+                        <a
+                          class="waves-effect waves-light btn col"
+                          onclick=""
+                          href="#"
+                        >
+                          <i class="material-icons left">play_arrow</i>Ejecutar
+                        </a>
+                      </div>
+                      <div class="col s6">
+                        <a
+                          class="waves-effect waves-light btn col"
+                          onclick=""
+                          href="#"
+                          type="submit"
+                        >
+                          <i class="material-icons left">backup</i>Enviar
+                        </a>
+                      </div>
+                      <!--
+                        <a
+                        href="#"
+                        onclick="action()"
+                        class="btn waves-effect waves-light col s12"
+                        >Enviar</a
+                        >
+                      -->
+                    </div>
+                  </center>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+        <div class="col s3"></div>
+      </div>
+    </div>
+    <script src="./js/index.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  </body>
+</html>
