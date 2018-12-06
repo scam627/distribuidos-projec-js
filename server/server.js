@@ -13,18 +13,33 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(fileUpload());
 app.use(bodyParser.json());
 
+app.get("/exec-cpp", (req, res) => {
+  const name = req.query.name;
+  const holis = shell.exec(
+    `g++ -std=c++11 -o ./cache/out ./cache/${name} && ./cache/out`
+  );
+  // console.log(holis);
+  res.send({ status: true, out: holis.stdout });
+});
+
+app.get("/comp-cpp", (req, res) => {
+  const name = req.query.name;
+  shell.exec(`g++ -std=c++11 -o ./cache/out ./cache/${name}`);
+  res.send({ status: true });
+});
+
 app.get("/status", (req, res) => {
-  shell.exec("g++ -std=c++11 ./cache/I.cpp");
+  console.log("Enable");
   res.send({ status: true });
 });
 
 app.post("/upload", (req, res) => {
-  console.log(req.files.file.mv);
+  //console.log(req.files.file.mv);
   if (req.files !== null) {
     let EDFile = req.files.file;
     EDFile.mv(`./cache/${EDFile.name}`, err => {
       if (err) return res.status(500).send({ msg: err });
-      return res.status(200).send({ success: false, msg: "File upload" });
+      return res.status(200).send({ success: true, msg: "File upload" });
     });
   } else res.send({ success: false, msg: "No exite archivo" });
 });

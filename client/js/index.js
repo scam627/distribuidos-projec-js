@@ -40,6 +40,22 @@ function ajaxPost(url, data, callback) {
   req.send(fd);
 }
 
+function execute(url) {
+  if (document.getElementById("file").files !== undefined) {
+    const name = document.getElementById("file").files[0].name;
+    const toUrl = `${url}?name=${name}`;
+    ajaxGet(toUrl, resp => {
+      const res = JSON.parse(resp);
+      const baseNode = document.getElementById(`out-${url}`);
+      while (baseNode.hasChildNodes())
+        baseNode.removeChild(baseNode.firstChild);
+      const newNode = `<h4 class="center-align">${res.out}</h4>`;
+      baseNode.insertAdjacentHTML("beforeend", newNode);
+      console.log(res);
+    });
+  }
+}
+
 function action() {
   let host = document.getElementById("host").value;
   host = host == "localhost" ? "127.0.0.1" : host;
@@ -98,12 +114,11 @@ function renderServers() {
               </div>
             </div>
             <div class="row">
-              <center>
                 <div class="input-field col s12">
                   <div class="col s6">
                     <a
                       class="waves-effect waves-light btn col"
-                      onclick="execute(${url}/execute)"
+                      onclick="execute('${url}/exec-cpp')"
                       href="#"
                     >
                       <i class="material-icons left">play_arrow</i>Ejecutar
@@ -119,7 +134,8 @@ function renderServers() {
                     </a>
                   </div>
                 </div>
-              </center>
+            </div>
+            <div class="row" id="out-${url}/exec-cpp">
             </div>
           </form>
         </div>`;
