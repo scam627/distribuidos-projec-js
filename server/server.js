@@ -29,7 +29,6 @@ app.get("/comp-cpp", (req, res) => {
 });
 
 app.get("/status", (req, res) => {
-  console.log("Enable");
   res.send({ status: true });
 });
 
