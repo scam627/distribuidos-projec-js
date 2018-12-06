@@ -43,6 +43,7 @@ app.post("/upload", (req, res) => {
   } else res.send({ success: false, msg: "No exite archivo" });
 });
 
-app.listen("3030", () => {
+const port = process.env.PORT || 3030;
+app.listen(port, () => {
   console.log("Server is running...");
 });
