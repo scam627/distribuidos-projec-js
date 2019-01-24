@@ -1,4 +1,4 @@
-const API_URL = "http://192.168.1.233:8080/";
+const API_URL = "http://192.168.1.56:8083/";
 
 function ajaxGet(url, callback) {
   // Creación de la petición HTTP
@@ -71,6 +71,22 @@ function action() {
   });
 }
 
+//esta funcion llama a la api del servidor principal, el de nombres la cual
+function actionCreateServer() {
+  //let host = document.getElementById("host").value;
+  //host = host == "localhost" ? "127.0.0.1" : host;
+  const port = document.getElementById("port").value;
+  const name = document.getElementById("name").value;
+  const memory = document.getElementById("memory").value;
+  const cpu = document.getElementById("cpu").value;
+  const url = `${API_URL}startServer?port=${port}&name=${name}&memory=${memory}&cpu=${cpu}`;
+
+  ajaxGet(url, resp => {
+    const res = JSON.parse(resp);
+    console.log(res.msg);
+  });
+}
+
 function saveFile(url, dir) {
   const id = `file-${dir}`;
   const data = document.getElementById(id).files[0];
@@ -80,15 +96,21 @@ function saveFile(url, dir) {
 }
 
 function renderServers() {
+  //console.log("holi");
   const memory = document.getElementById("memory").value;
+
   const cpu = document.getElementById("cpu").value;
   const url = `${API_URL}servers?memory=${memory}&cpu=${cpu}`;
+  //console.log(url);
+  //console.log(memory);
   if (cpu !== undefined && memory !== undefined) {
     const baseNode = document.getElementById("servers");
     while (baseNode.hasChildNodes()) baseNode.removeChild(baseNode.firstChild);
+
     ajaxGet(url, resp => {
       console.log(resp);
       var serverList = JSON.parse(resp);
+      console.log(serverList);
       for (let i = 0; i < serverList.length; i++) {
         const host = serverList[i].host;
         const name = serverList[i].name;
