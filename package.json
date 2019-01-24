@@ -12,6 +12,8 @@
   "dependencies": {
     "express": "^4.16.4",
     "nodemon": "^1.18.9",
-    "request": "^2.88.0"
+    "request": "^2.88.0",
+    "shelljs": "^0.8.3",
+    "sleep": "^5.2.4"
   }
 }
