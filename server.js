@@ -26,16 +26,16 @@ app.get("/all-servers", (req, res) => {
 });
 
 app.get("/startServer", (req, res) => {
-  if (req.query.host !== undefined && req.query.port !== undefined) {
+  if (req.query.port !== undefined) {
     const port = req.query.port;
-    const host = req.query.host;
+    //const host = req.query.host;
     const name = req.query.name;
     const memory = req.query.memory;
     const cpu = req.query.cpu;
     //res.send({ puerto: puerto, host: host });
 
     const data = {
-      host: req.query.host,
+      host: "192.168.1.56",
       port: req.query.port,
       name: req.query.name,
       memory: req.query.memory,
@@ -46,7 +46,7 @@ app.get("/startServer", (req, res) => {
       async: true
     });
 
-    sleep.sleep(5);
+    sleep.sleep(4);
     //editar para validar
     let state = false;
     listServers.forEach(server => {
