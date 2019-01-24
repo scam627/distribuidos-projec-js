@@ -1,4 +1,4 @@
-const API_URL = "http://localhost:8080/";
+const API_URL = "http://192.168.1.233:8080/";
 
 function ajaxGet(url, callback) {
   // Creación de la petición HTTP
@@ -40,9 +40,10 @@ function ajaxPost(url, data, callback) {
   req.send(fd);
 }
 
-function execute(url) {
-  if (document.getElementById("file").files !== undefined) {
-    const name = document.getElementById("file").files[0].name;
+function execute(url, dir) {
+  const id = `file-${dir}`;
+  if (document.getElementById(id).files !== undefined) {
+    const name = document.getElementById(id).files[0].name;
     const toUrl = `${url}?name=${name}`;
     ajaxGet(toUrl, resp => {
       const res = JSON.parse(resp);
@@ -63,15 +64,16 @@ function action() {
   const name = document.getElementById("name").value;
   const memory = document.getElementById("memory").value;
   const cpu = document.getElementById("cpu").value;
-  const url = `http://localhost:8080/add?host=${host}&port=${port}&name=${name}&memory=${memory}&cpu=${cpu}`;
+  const url = `${API_URL}add?host=${host}&port=${port}&name=${name}&memory=${memory}&cpu=${cpu}`;
   ajaxGet(url, resp => {
     const res = JSON.parse(resp);
     console.log(res.msg);
   });
 }
 
-function saveFile(url) {
-  const data = document.getElementById("file").files[0];
+function saveFile(url, dir) {
+  const id = `file-${dir}`;
+  const data = document.getElementById(id).files[0];
   ajaxPost(url, data, res => {
     console.log(res);
   });
@@ -95,6 +97,7 @@ function renderServers() {
         const cpu = serverList[i].cpu;
         const url = "http://" + host + ":" + port;
         const newNode = `
+        <div class="row">
         <div class="col s2"></div>
         <div class="col s8">
           <h4 class="center-align">${name}</h4>
@@ -103,7 +106,7 @@ function renderServers() {
           <form action="#">
             <div class="row file-field input-field">
               <div class="btn">
-                <span>File</span> <input id="file" type="file" multiple />
+                <span>File</span> <input id="file-${url}" type="file" multiple />
               </div>
               <div class="file-path-wrapper">
                 <input
@@ -118,7 +121,7 @@ function renderServers() {
                   <div class="col s6">
                     <a
                       class="waves-effect waves-light btn col"
-                      onclick="execute('${url}/exec-cpp')"
+                      onclick="execute('${url}/exec-cpp','${url}')"
                       href="#"
                     >
                       <i class="material-icons left">play_arrow</i>Ejecutar
@@ -127,7 +130,7 @@ function renderServers() {
                   <div class="col s6">
                     <a
                       class="waves-effect waves-light btn col"
-                      onclick="saveFile('${url}/upload')"
+                      onclick="saveFile('${url}/upload','${url}')"
                       href="#"
                     >
                       <i class="material-icons left">backup</i>Enviar
@@ -138,6 +141,8 @@ function renderServers() {
             <div class="row" id="out-${url}/exec-cpp">
             </div>
           </form>
+        </div>
+        <div class="col s2"></div>
         </div>`;
         baseNode.insertAdjacentHTML("beforeend", newNode);
       }
