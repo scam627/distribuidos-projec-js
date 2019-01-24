@@ -1,4 +1,4 @@
-const API_URL = "http://192.168.1.233:8080/";
+const API_URL = "http://192.168.1.56:8080/";
 
 function ajaxGet(url, callback) {
   // Creación de la petición HTTP

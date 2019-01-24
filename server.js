@@ -10,15 +10,21 @@ const app = express();
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-app.use(express.static(__dirname + "/client/"));
+app.use(express.static(__dirname + "/client"));
 
 var listServers = [];
 // listServers.push({ host: "192.168.0.1", port: "3030" });
+
+app.get("/status", (req, res) => {
+  res.send({ succefull: true });
+});
 
 app.get("/all-servers", (req, res) => {
   res.send(listServers);
 });
 
+//en la ventana en la que se ingresan los requerimientos  la funcion que actualiza la pagina se consume
+//esta api para obtener la lista de todos los servidores
 app.get("/servers", (req, res) => {
   if (req.query.memory !== undefined && req.query.cpu !== undefined) {
     const memory = req.query.memory;
@@ -31,6 +37,7 @@ app.get("/servers", (req, res) => {
   } else res.send({ success: false });
 });
 
+//en la ventana del front se llena un formulario donde se agregan equipos que estan
 app.get("/add", (req, res) => {
   if (req.query.host !== undefined && req.query.port !== undefined) {
     const data = {
@@ -61,9 +68,10 @@ app.get("/add", (req, res) => {
         }
       });
     } else res.send({ success: true, err: null, msg: "Server already added" });
-  } else res.send({ success: false, err: true, msg: ":(" });
+  } else
+    res.send({ success: false, err: true, msg: "Especifique puerto y host" });
 });
 
-app.listen("8080", () => {
+app.listen("8081", () => {
   console.log("Server is running...");
 });
